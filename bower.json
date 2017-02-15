@@ -1,0 +1,9 @@
+{
+  "name": "angular-training",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "angular": "1.6.2",
+    "bootstrap": "3.3.7"
+  }
+}
