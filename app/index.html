@@ -1,14 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="exercise1">
 <head lang="en">
     <title>AngularJS Tutorials</title>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 </head>
 
-<body>
+<body ng-controller="UserController as userCtrl">
+<div class="container">
+    <h1>
+        {{userCtrl.name}} </h1>
+    <ol>
+        <li ng-repeat="n in userCtrl.names">{{n}}</li>
+    </ol>
+    <p>{{userCtrl.user.name|lowercase}}</p>
 
+    <p ng-show="userCtrl.user.age!==22">{{userCtrl.user.age}}</p>
+
+    <p>{{userCtrl.user.wallet|currency}}</p>
+
+    <button ng-click="userCtrl.spendMoney(20)">OK</button>
+    <div class="jumbotron">
+        <input type="text" class="form-control" ng-model="userCtrl.name"/>
+    </div>
+</div>
 
 <script src="bower_components/angular/angular.min.js"></script>
 <script src="app.js"></script>
+<script src="user.controller.js"></script>
+
 </body>
 </html>
