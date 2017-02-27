@@ -7,7 +7,22 @@
 
 <body ng-controller="UserController as userCtrl">
 <div class="container">
-
+    <table class="table">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>age</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="user in userCtrl.users">
+            <td>{{user.id}}</td>
+            <td>{{user.name}}</td>
+            <td>{{user.age}}</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 <script src="bower_components/angular/angular.min.js"></script>
