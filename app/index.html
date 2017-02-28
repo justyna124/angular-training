@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html ng-app="app">
-<head lang="en">
+<head lang="en">nwCard
     <title>AngularJS Tutorials</title>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 </head>
 
-<body ng-controller="UserController as userCtrl">
+<body ng-controller="UserController">
 <div class="container">
+{{car.name}}
 
 </div>
 
+<div ng-controller="CarController">
+
+    {{name}}
+
+</div>
+{{name}}
 <script src="bower_components/angular/angular.min.js"></script>
 <script src="app.js"></script>
 <script src="user.controller.js"></script>
