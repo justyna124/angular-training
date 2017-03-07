@@ -1,18 +1,79 @@
 <!DOCTYPE html>
 <html ng-app="app">
 <head lang="en">
-    <title>AngularJS Tutorials</title>
+    <meta charset="UTF-8">
+    <title>Trener Cinkciarz</title>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 
-<body ng-controller="UserController as userCtrl">
+<body ng-controller="ExchangeRateController as erCtrl">
 <div class="container">
+    <header>
+        <h1>Trener Cinkciarz</h1>
+    </header>
+    <div class="row">
+        <div class="col-md-5">
 
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>CURRENCY</th>
+                    <th>PURCHASE</th>
+                    <th>SALE</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="currency in erCtrl.currencies">
+                    <td>{{currency.code}}
+                    </td>
+                    <td>{{currency.bid | number: 4}}</td>
+                    <td>{{currency.ask | number: 4}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-7">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4 aaa ">
+                    WALLET: <input type="number" value="{{erCtrl.wallet.PLN}}" class="form-control">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <select class="form-control bbb">
+                        <option>BUY</option>
+                        <option>SELL</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <input type="number" value="0" class="form-control">
+                </div>
+
+                <div class="col-md-4">
+                    <select class="form-control col-md-2">
+                        <option ng-repeat="currency in erCtrl.currencies">{{currency.code}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <p>VALUE : </p>
+                </div>
+            </div>
+            <div class="col-md-4 col-md-offset-4">
+                <button type="button" class="btn btn-success">Success</button>
+            </div>
+        </div>
+    </div>
 </div>
 
+
 <script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/ngstorage/ngStorage.min.js"></script>
 <script src="app.js"></script>
-<script src="user.controller.js"></script>
+<script src="exchange-rate.controller.js"></script>
+<script src="exchange-rate.service.js"></script>
+<script src="wallet-service.js"></script>
 
 </body>
 </html>
