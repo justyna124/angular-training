@@ -35,33 +35,39 @@
         <div class="col-md-7">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4 aaa ">
-                    WALLET: <input type="number" value="{{erCtrl.wallet.PLN}}" class="form-control">
+                    WALLET: <input type="text" disabled value="{{erCtrl.wallet.PLN |currency:'PLN ':0}}" class="form-control">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <select class="form-control bbb">
-                        <option>BUY</option>
-                        <option>SELL</option>
+                    <select class="form-control bbb" ng-model="erCtrl.action">
+                        <option value="buy">BUY</option>
+                        <option value="sell">SELL</option>
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <input type="number" value="0" class="form-control">
+                    <input ng-model="erCtrl.myValue" type="number" placeholder="type your sum here" class="form-control" required>
                 </div>
-
                 <div class="col-md-4">
-                    <select class="form-control col-md-2">
-                        <option ng-repeat="currency in erCtrl.currencies">{{currency.code}}</option>
+                    <select class="form-control col-md-2" ng-model="erCtrl.currency">
+                        <option value="{{currency.code}}" ng-repeat="currency in erCtrl.currencies">{{currency.code}}</option>
                     </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4">
-                    <p>VALUE : </p>
                 </div>
             </div>
             <div class="col-md-4 col-md-offset-4">
-                <button type="button" class="btn btn-success">Success</button>
+                <button type="button" class="btn btn-success" ng-click="erCtrl.check()">Check</button>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <p>VALUE : {{erCtrl.testValue}}</p>
+                    <p>TEMPORARY WALLET </p>
+                    <ul ng-repeat="(key, value) in erCtrl.tempWallet">
+                        <li> {{key}}:{{ value }} </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4 col-md-offset-4">
+                <button type="button" class="btn btn-success">Confirm</button>
             </div>
         </div>
     </div>

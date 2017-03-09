@@ -9,6 +9,12 @@
 
             return $localStorage.wallet;
         };
+
+        service.buy= function(code,rate,value){
+
+
+
+        };
     }
 
     angular.module('app').service('WalletService', WalletService);
