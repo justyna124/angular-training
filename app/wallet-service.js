@@ -6,13 +6,11 @@
         var service = this;
         service.getWallet = function ()
         {
-
             return $localStorage.wallet;
         };
 
-        service.buy= function(code,rate,value){
-
-
+        service.finalWallet= function(fWallet){
+            $localStorage.wallet= fWallet;
 
         };
     }

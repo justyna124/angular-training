@@ -7,12 +7,11 @@
         var ctrl = this;
         ctrl.currencies = [];
         ctrl.myValue = 100;
-        ctrl.action='buy';
+        ctrl.action = 'buy';
         ctrl.currency = 'EUR';
 
         $localStorage.wallet = {
-            PLN: 1000,
-            USD: 0
+            PLN: 1000
         };
 
         ctrl.wallet = WalletService.getWallet();
@@ -20,22 +19,36 @@
         ExchangeRateService.getExchangeRates().then(function (result)
         {
             ctrl.currencies = result;
+            ctrl.currencies.forEach(function (currencyObject)
+            {
+                $localStorage.wallet[currencyObject.code] = 0;
+            });
         });
 
         ctrl.check = function ()
         {
+            ctrl.tempWallet = angular.copy(WalletService.getWallet());
+
             findCurrency(ctrl.currency);
             if (ctrl.action === 'buy') {
                 ctrl.testValue = ctrl.myValue * ctrl.rate.ask;
-                ctrl.tempWallet = {
-                    PLN: ctrl.wallet.PLN - ctrl.testValue
-                };
-                ctrl.tempWallet[ctrl.currency]= ctrl.myValue;
-
+                ctrl.tempWallet.PLN -= ctrl.testValue;
+                ctrl.tempWallet[ctrl.currency] += ctrl.myValue;
             }
             else if (ctrl.action === 'sell') {
                 ctrl.testValue = ctrl.myValue * ctrl.rate.bid;
+                ctrl.tempWallet.PLN += ctrl.testValue;
+                ctrl.tempWallet[ctrl.currency] -= ctrl.myValue;
             }
+        };
+
+        ctrl.confirm = function ()
+        {
+            WalletService.finalWallet(ctrl.tempWallet);
+            ctrl.wallet = WalletService.getWallet();
+            ctrl.tempWallet = {};
+            ctrl.myValue = 0;
+            ctrl.testValue = 0;
         };
 
         function findCurrency(currency)
@@ -47,6 +60,12 @@
                 }
             });
         }
+
+        ctrl.cancelTempwallet = function ()
+        {
+            ctrl.tempWallet = {};
+            ctrl.testValue = 0;
+        };
 
     }
 

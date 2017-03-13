@@ -3,16 +3,30 @@ button {
     margin-bottom: 50px;
 }
 
-.aaa{
-    margin-bottom: 50px;
-}
-
 p{
     margin-top: 50px;
     font-size: 15px;
+    font-weight: 700;
 }
 
-.btn-success{
-    width: 190px;
 
+.btn-success{
+    width: 200px;
+}
+.btn-warning {
+    width: 200px;
+}
+
+.panel-heading{
+    width: auto;
+    text-align: center;
+}
+
+.panel-warning{
+    padding-left: 0px;
+    padding-right: 0px;
+
+}
+.panel-body{
+    width: auto;
 }
