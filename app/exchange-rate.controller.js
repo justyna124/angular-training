@@ -25,32 +25,6 @@
             });
         });
 
-        ctrl.check = function ()
-        {
-            ctrl.tempWallet = angular.copy(WalletService.getWallet());
-
-            findCurrency(ctrl.currency);
-            if (ctrl.action === 'buy') {
-                ctrl.testValue = ctrl.myValue * ctrl.rate.ask;
-                ctrl.tempWallet.PLN -= ctrl.testValue;
-                ctrl.tempWallet[ctrl.currency] += ctrl.myValue;
-            }
-            else if (ctrl.action === 'sell') {
-                ctrl.testValue = ctrl.myValue * ctrl.rate.bid;
-                ctrl.tempWallet.PLN += ctrl.testValue;
-                ctrl.tempWallet[ctrl.currency] -= ctrl.myValue;
-            }
-        };
-
-        ctrl.confirm = function ()
-        {
-            WalletService.finalWallet(ctrl.tempWallet);
-            ctrl.wallet = WalletService.getWallet();
-            ctrl.tempWallet = {};
-            ctrl.myValue = 0;
-            ctrl.testValue = 0;
-        };
-
         function findCurrency(currency)
         {
             ctrl.currencies.forEach(function (val)
@@ -61,12 +35,46 @@
             });
         }
 
-        ctrl.cancelTempwallet = function ()
+        function buyCurrency()
+        {
+            ctrl.testValue = ctrl.myValue * ctrl.rate.ask;
+            ctrl.tempWallet.PLN -= ctrl.testValue;
+            ctrl.tempWallet[ctrl.currency] += ctrl.myValue;
+        }
+
+        function sellCurrency()
+        {
+            ctrl.testValue = ctrl.myValue * ctrl.rate.bid;
+            ctrl.tempWallet.PLN += ctrl.testValue;
+            ctrl.tempWallet[ctrl.currency] -= ctrl.myValue;
+        }
+
+        ctrl.check = function ()
+        {
+            ctrl.tempWallet = angular.copy(WalletService.getWallet());
+
+            findCurrency(ctrl.currency);
+            if (ctrl.action === 'buy') {
+                buyCurrency();
+            }
+            else if (ctrl.action === 'sell') {
+                sellCurrency();
+            }
+        };
+
+        ctrl.confirm = function ()
+        {
+            WalletService.finalWallet(ctrl.tempWallet);
+            ctrl.wallet = WalletService.getWallet();
+            ctrl.cancelTempWallet();
+        };
+
+        ctrl.cancelTempWallet = function ()
         {
             ctrl.tempWallet = {};
             ctrl.testValue = 0;
+            ctrl.myValue = 0;
         };
-
     }
 
     angular.module('app').controller('ExchangeRateController', ExchangeRateController);
